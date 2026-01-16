@@ -1,0 +1,66 @@
+# 依赖文件
+node_modules/
+vendor/
+composer.lock
+
+# 环境配置
+.env
+.env.local
+.env.*.local
+
+# 运行时文件
+runtime/
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 构建输出
+dist/
+build/
+*.tgz
+
+# IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# 临时文件
+*.tmp
+*.temp
+
+# 缓存文件
+.cache/
+.parcel-cache/
+
+# 测试覆盖
+.coverage/
+.nyc_output/
+
+# 数据库
+*.sqlite
+*.db
+
+# 上传文件
+uploads/
+public/uploads/
+
+# 微信开发者工具
+miniprogram_npm/
+project.config.json
+
+# ThinkPHP
+runtime/
+vendor/
+.env
+
+# 备份文件
+*.bak
+*.backup

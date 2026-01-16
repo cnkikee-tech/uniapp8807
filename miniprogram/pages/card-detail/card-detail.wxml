@@ -1,0 +1,91 @@
+<!--pages/card-detail/card-detail.wxml-->
+<view class="container">
+  <!-- 名片头部 -->
+  <view class="card-header">
+    <view class="avatar-wrapper">
+      <image 
+        class="avatar" 
+        src="{{card.avatar || '/images/default-avatar.png'}}" 
+        mode="aspectFill"
+      ></image>
+    </view>
+    <view class="basic-info">
+      <text class="name">{{card.name}}</text>
+      <text class="position">{{card.position || '暂无职务'}}</text>
+      <text class="company">{{card.company || '暂无公司'}}</text>
+    </view>
+  </view>
+
+  <!-- 名片详情 -->
+  <view class="card-details">
+    <view class="detail-section">
+      <view class="section-title">基本信息</view>
+      <view class="detail-item">
+        <text class="detail-label">📞 电话</text>
+        <text class="detail-value phone" bindtap="onPhoneTap" data-phone="{{card.phone}}">{{card.phone}}</text>
+      </view>
+      <view class="detail-item" wx:if="{{card.email}}">
+        <text class="detail-label">📧 邮箱</text>
+        <text class="detail-value email" bindtap="onEmailTap" data-email="{{card.email}}">{{card.email}}</text>
+      </view>
+      <view class="detail-item" wx:if="{{card.wechat}}">
+        <text class="detail-label">💬 微信</text>
+        <text class="detail-value">{{card.wechat}}</text>
+      </view>
+      <view class="detail-item" wx:if="{{card.website}}">
+        <text class="detail-label">🌐 网站</text>
+        <text class="detail-value website" bindtap="onWebsiteTap" data-url="{{card.website}}">{{card.website}}</text>
+      </view>
+    </view>
+
+    <view class="detail-section" wx:if="{{card.company_address}}">
+      <view class="section-title">公司地址</view>
+      <view class="detail-item address">
+        <text class="detail-label">📍 地址</text>
+        <text class="detail-value address-value" bindtap="onAddressTap" data-address="{{card.company_address}}">{{card.company_address}}</text>
+      </view>
+    </view>
+
+    <view class="detail-section" wx:if="{{card.description}}">
+      <view class="section-title">个人简介</view>
+      <view class="detail-item">
+        <text class="detail-value description">{{card.description}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-buttons">
+    <button class="action-btn primary" bindtap="onPhoneTap" data-phone="{{card.phone}}">
+      <text class="btn-icon">📞</text>
+      <text class="btn-text">拨打电话</text>
+    </button>
+    <button class="action-btn secondary" bindtap="onSaveContact">
+      <text class="btn-icon">👤</text>
+      <text class="btn-text">保存联系人</text>
+    </button>
+    <button class="action-btn tertiary" bindtap="onShareCard">
+      <text class="btn-icon">📤</text>
+      <text class="btn-text">分享名片</text>
+    </button>
+  </view>
+
+  <!-- 统计信息 -->
+  <view class="stats-info">
+    <view class="stat-item">
+      <text class="stat-label">浏览次数</text>
+      <text class="stat-value">{{card.view_count}}</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-label">创建时间</text>
+      <text class="stat-value">{{card.created_at}}</text>
+    </view>
+  </view>
+</view>
+
+<!-- 加载状态 -->
+<view wx:if="{{isLoading}}" class="loading-overlay">
+  <view class="loading-content">
+    <text>加载中...</text>
+  </view>
+</view>

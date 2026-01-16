@@ -1,0 +1,82 @@
+<!--pages/index/index.wxml-->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input-wrapper">
+      <input 
+        class="search-input" 
+        placeholder="搜索姓名、公司、职务..." 
+        value="{{searchKeyword}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearchConfirm"
+      />
+      <view class="search-icon" bindtap="onSearch">
+        <text class="iconfont icon-search"></text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 名片列表 -->
+  <scroll-view 
+    scroll-y 
+    class="card-list" 
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{isRefreshing}}"
+    bindrefresherrefresh="onRefresh"
+    bindscrolltolower="onLoadMore"
+  >
+    <view wx:if="{{cards.length === 0 && !isLoading}}" class="empty-state">
+      <image class="empty-icon" src="/images/empty.png" mode="aspectFit"></image>
+      <text class="empty-text">暂无名片数据</text>
+    </view>
+    
+    <view wx:else class="card-grid">
+      <view 
+        class="card-item" 
+        wx:for="{{cards}}" 
+        wx:key="id"
+        bindtap="onCardTap"
+        data-id="{{item.id}}"
+      >
+        <view class="card-content">
+          <view class="card-header">
+            <image 
+              class="card-avatar" 
+              src="{{item.avatar || '/images/default-avatar.png'}}" 
+              mode="aspectFill"
+            ></image>
+            <view class="card-info">
+              <text class="card-name">{{item.name}}</text>
+              <text class="card-position">{{item.position || '暂无职务'}}</text>
+            </view>
+          </view>
+          <view class="card-body">
+            <text class="card-company">{{item.company || '暂无公司'}}</text>
+            <view class="card-contact">
+              <text class="card-phone">📞 {{item.phone}}</text>
+              <text class="card-email">📧 {{item.email || '暂无邮箱'}}</text>
+            </view>
+          </view>
+          <view class="card-footer">
+            <text class="card-views">浏览 {{item.view_count}}</text>
+            <text class="card-date">{{item.created_at}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 加载更多提示 -->
+    <view wx:if="{{isLoadingMore}}" class="load-more">
+      <text>加载中...</text>
+    </view>
+    
+    <view wx:if="{{!hasMore && cards.length > 0}}" class="no-more">
+      <text>没有更多了</text>
+    </view>
+  </scroll-view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{isLoading}}" class="loading">
+    <text>加载中...</text>
+  </view>
+</view>
